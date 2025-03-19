@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="PPWoodland-Regular.ttf">
+            <string>PPWoodland-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="gTV-IL-0wX" customClass="DreamCell" customModule="DreamApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="171" height="251"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="171" height="251"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fVd-dX-JvM">
+                        <rect key="frame" x="0.0" y="0.0" width="171" height="251"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TxA-Hz-32J" customClass="CustomImageView" customModule="DreamApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="171" height="251"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jgZ-MQ-OmS" customClass="GradientView" customModule="DreamApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="171" height="251"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                        <color key="value" red="0.91764705879999997" green="0.94509803920000002" blue="0.96078431369999995" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                        <color key="value" name="surface-200"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="startLocation">
+                                        <real key="value" value="0.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="endLocation">
+                                        <real key="value" value="0.90000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R6K-d8-FPi">
+                                <rect key="frame" x="16" y="218.33333333333334" width="139" height="20.666666666666657"/>
+                                <fontDescription key="fontDescription" name="PPWoodland-Regular" family="PP Woodland" pointSize="20"/>
+                                <color key="textColor" name="shades-gray-800"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="jgZ-MQ-OmS" firstAttribute="leading" secondItem="fVd-dX-JvM" secondAttribute="leading" id="14K-GM-ySh"/>
+                            <constraint firstItem="R6K-d8-FPi" firstAttribute="leading" secondItem="fVd-dX-JvM" secondAttribute="leading" constant="16" id="4ge-tC-g7y"/>
+                            <constraint firstItem="TxA-Hz-32J" firstAttribute="leading" secondItem="fVd-dX-JvM" secondAttribute="leading" id="Jiq-u0-jXJ"/>
+                            <constraint firstAttribute="bottom" secondItem="TxA-Hz-32J" secondAttribute="bottom" id="SBq-76-sPx"/>
+                            <constraint firstAttribute="bottom" secondItem="jgZ-MQ-OmS" secondAttribute="bottom" id="V4E-Uz-Hl6"/>
+                            <constraint firstAttribute="trailing" secondItem="TxA-Hz-32J" secondAttribute="trailing" id="eC0-mS-GYe"/>
+                            <constraint firstItem="jgZ-MQ-OmS" firstAttribute="top" secondItem="fVd-dX-JvM" secondAttribute="top" id="nCG-cQ-Vnr"/>
+                            <constraint firstAttribute="trailing" secondItem="R6K-d8-FPi" secondAttribute="trailing" constant="16" id="ojM-aG-50a"/>
+                            <constraint firstAttribute="trailing" secondItem="jgZ-MQ-OmS" secondAttribute="trailing" id="shf-ZK-XnN"/>
+                            <constraint firstAttribute="bottom" secondItem="R6K-d8-FPi" secondAttribute="bottom" constant="12" id="vEo-Pr-RyV"/>
+                            <constraint firstItem="TxA-Hz-32J" firstAttribute="top" secondItem="fVd-dX-JvM" secondAttribute="top" id="zUy-x4-cMs"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="16"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <color key="backgroundColor" name="surface-100"/>
+            <constraints>
+                <constraint firstItem="fVd-dX-JvM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="BVy-kQ-3XP"/>
+                <constraint firstItem="fVd-dX-JvM" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="HAa-zs-lwa"/>
+                <constraint firstAttribute="bottom" secondItem="fVd-dX-JvM" secondAttribute="bottom" id="Leo-HN-vJl"/>
+                <constraint firstAttribute="trailing" secondItem="fVd-dX-JvM" secondAttribute="trailing" id="hV0-EV-pls"/>
+            </constraints>
+            <size key="customSize" width="308" height="446"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                    <real key="value" value="16"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                    <color key="value" name="surface-50"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                    <real key="value" value="2"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                    <real key="value" value="8"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                    <size key="value" width="0.0" height="2"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                    <color key="value" name="Shadow 91B2C9"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                    <integer key="value" value="24"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="img" destination="TxA-Hz-32J" id="aIX-uE-AGD"/>
+                <outlet property="title" destination="R6K-d8-FPi" id="0x5-AW-6qN"/>
+            </connections>
+            <point key="canvasLocation" x="325.95419847328242" y="127.8169014084507"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <namedColor name="Shadow 91B2C9">
+            <color red="0.56862745098039214" green="0.69803921568627447" blue="0.78823529411764703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="shades-gray-800">
+            <color red="0.19607843137254902" green="0.23529411764705882" blue="0.2627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="surface-100">
+            <color red="0.96078431372549022" green="0.97254901960784312" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="surface-200">
+            <color red="0.91764705882352937" green="0.94509803921568625" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="surface-50">
+            <color red="0.9882352941176471" green="0.99215686274509807" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

@@ -1,8 +1,8 @@
 //
 //  SceneDelegate.swift
-//  Dreams_Public
+//  WeDream
 //
-//  Created by Kasianov on 19.03.2025.
+//  Created by Kasianov on 24.07.2023.
 //
 
 import UIKit
@@ -11,12 +11,42 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        maybeOpenedFromDeepLink(urlContexts: URLContexts, scene: scene)
+    }
+
+    private func maybeOpenedFromDeepLink(urlContexts: Set<UIOpenURLContext>, scene: UIScene) {
+        guard let url = urlContexts.first?.url.absoluteString else {
+            UserDefaults.standard.set(0, forKey: "OpenView")
+            return
+        }
+        
+        print("URL - " + url)
+        
+        switch url {
+        case "wedream://dreams":
+            UserDefaults.standard.set(0, forKey: "OpenView")
+        case "wedream://chat":
+            UserDefaults.standard.set(1, forKey: "OpenView")
+        case "wedream://library":
+            UserDefaults.standard.set(3, forKey: "OpenView")
+        case "wedream://sounds":
+            UserDefaults.standard.set(4, forKey: "OpenView")
+        default:
+            UserDefaults.standard.set(0, forKey: "OpenView")
+        }
+        
+        guard let windowScene = scene as? UIWindowScene else { return }
+        guard let window = windowScene.windows.first,
+              let rootViewController = window.rootViewController else { return }
+        
+        rootViewController.dismiss(animated: false, completion: nil)
+    }
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+        maybeOpenedFromDeepLink(urlContexts: connectionOptions.urlContexts, scene: scene)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

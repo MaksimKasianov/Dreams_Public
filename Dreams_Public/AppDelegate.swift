@@ -1,21 +1,86 @@
 //
 //  AppDelegate.swift
-//  Dreams_Public
+//  WeDream
 //
-//  Created by Kasianov on 19.03.2025.
+//  Created by Kasianov on 24.07.2023.
 //
 
 import UIKit
 import CoreData
+import FirebaseCore
+import Sentry
+import AppTrackingTransparency
+import AppsFlyerLib
+import AVFoundation
+import AppLovinSDK
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        FirebaseApp.configure()
+        
+        SentrySDK.start { options in
+            options.dsn = ""
+            options.tracesSampleRate = 1.0
+            
+        }
+        
+        AdaptyManager.shared.instance()
+        AmplitudeManager.shared.instance()
+        
+        //MARK: AppsFlyer
+        AppsFlyerLib.shared().appsFlyerDevKey = ""
+        AppsFlyerLib.shared().appleAppID = ""
+        
+        AppsFlyerLib.shared().waitForATTUserAuthorization(timeoutInterval: 60)
+        
+        AppsFlyerLib.shared().delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActiveNotification), name: UIApplication.didBecomeActiveNotification, object: nil)
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: .mixWithOthers)
+            try AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        let initConfig = ALSdkInitializationConfiguration(sdkKey: "") { builder in
+            builder.mediationProvider = ALMediationProviderMAX
+//             Enable test mode by default for the current device.
+//            if let currentIDFV = UIDevice.current.identifierForVendor?.uuidString
+//            {
+//                builder.testDeviceAdvertisingIdentifiers = [currentIDFV]
+//            }
+        }
+        
+        // Initialize the SDK with the configuration
+        ALSdk.shared().initialize(with: initConfig) { sdkConfig in
+            // Start loading ads
+        }
+        
         return true
+    }
+
+    @objc func didBecomeActiveNotification() {
+        AppsFlyerLib.shared().start()
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization { (status) in
+                DispatchQueue.main.async {
+                    switch status {
+                    case .authorized:
+                        print("AuthorizationSatus is authorized")
+                    case .denied, .notDetermined, .restricted:
+                        break
+                    @unknown default:
+                        fatalError("Invalid authorization status")
+                    }
+                }
+            }
+        }
     }
 
     // MARK: UISceneSession Lifecycle
@@ -34,33 +99,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Core Data stack
 
-    lazy var persistentContainer: NSPersistentContainer = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-        */
-        let container = NSPersistentContainer(name: "Dreams_Public")
+    lazy var persistentContainer: NSPersistentCloudKitContainer = {
+        let container = NSPersistentCloudKitContainer(name: "DreamApp")
+        
+        guard let description = container.persistentStoreDescriptions.first else {
+            fatalError("###\(#function): Failed to retrieve a persistent store description.")
+        }
+        
+        description.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
+        
+        description.setOption(true as NSNumber,
+                              forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
+        
+//      //if(!NSUbiquitousKeyValueStore.default.bool(forKey: "icloud_sync")){
+//        if !UserDefaults.standard.bool(forKey: "icloud_sync") {
+//            description.cloudKitContainerOptions = nil
+//        }
+        
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                 
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+        container.viewContext.automaticallyMergesChangesFromParent = true
+        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         return container
-    }()
-
+    } ()
     // MARK: - Core Data Saving support
 
     func saveContext () {
@@ -79,3 +143,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension AppDelegate: AppsFlyerLibDelegate {
+
+    func onConversionDataSuccess(_ data: [AnyHashable: Any]) {
+        
+        //Adapty.updateAttribution(data, source: .appsflyer, networkUserId: AppsFlyerLib.shared().getAppsFlyerUID())
+    }
+    
+    func onConversionDataFail(_ error: Error) {
+        print("\(error)")
+    }
+}

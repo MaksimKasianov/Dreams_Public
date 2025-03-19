@@ -10,22 +10,9 @@
 		9ADC66A12D8AA11A00AD4B54 /* Dreams_Public.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dreams_Public.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		9ADC66B62D8AA11B00AD4B54 /* Exceptions for "Dreams_Public" folder in "Dreams_Public" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 9ADC66A02D8AA11A00AD4B54 /* Dreams_Public */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		9ADC66A32D8AA11A00AD4B54 /* Dreams_Public */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				9ADC66B62D8AA11B00AD4B54 /* Exceptions for "Dreams_Public" folder in "Dreams_Public" target */,
-			);
 			path = Dreams_Public;
 			sourceTree = "<group>";
 		};
